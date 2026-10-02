@@ -1,5 +1,5 @@
 import { Imagen } from './Imagen.jsx'
-import { RUTA } from './Basedatos.js'
+import { RUTA } from './baseDatos.js'
 
 export function FilaEstilo ({ id, nombre, tipo, emoji, equipado, alternar }) {
   return (
