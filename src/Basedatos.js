@@ -8,8 +8,8 @@ export const CHICAS = [
 
 export const COMPLEMENTOS = [
   { id: 'hippie_ac1', chica: 'hippie', nombre: 'Bordados' },
-  { id: 'hippie_ac2', chica: 'hippie', nombre: 'Mariposa azul'},
-  { id: 'hippie_ac3', chica: 'hippie', nombre: 'Luciérnagas'},
+  { id: 'hippie_ac2', chica: 'hippie', nombre: 'Mariposa'},
+  { id: 'hippie_ac3', chica: 'hippie', nombre: 'Flores'},
 
  
   { id: 'choni_ac1', chica: 'choni', nombre: 'Estampado de leopardo'},

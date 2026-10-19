@@ -1,19 +1,14 @@
 import { Miniatura } from './Miniatura.jsx'
-import { RUTA } from './baseDatos.js'
 
-export function FichaComplemento ({ children, id, tipo = 'Accesorio', emoji, equipado, alternar }) {
-  const claseFicha = equipado ? 'ficha-comp ficha-comp-puesta' : 'ficha-comp'
-  const claseBoton = equipado ? 'boton boton-equipar puesto' : 'boton boton-equipar'
-
+export function FichaComplemento ({ children, imagen, tipo = 'Accesorio', equipado, alternar }) {
   return (
-    <li className={claseFicha}>
-      {equipado && <span className="cinta">¡Puesto!</span>}
+    <li className={equipado ? 'ficha-comp ficha-comp-puesta' : 'ficha-comp'}>
       <div className="ficha-comp-imagen">
-        <Miniatura src={`${RUTA}complementos/${id}.png`} alt={String(children)} relleno={emoji} />
+        <Miniatura src={imagen} alt={String(children)} />
       </div>
-      <strong className="ficha-comp-nombre">{children}</strong>
+      <strong>{children}</strong>
       <span className="ficha-comp-tipo">Tipo: {tipo}</span>
-      <button type="button" className={claseBoton} onClick={alternar}>
+      <button type="button" className={equipado ? 'boton boton-equipar puesto' : 'boton boton-equipar'} onClick={alternar}>
         <span className="boton-texto">{equipado ? 'Equipado ✓' : 'Equipar'}</span>
         <span className="boton-quitar">Quitar</span>
       </button>

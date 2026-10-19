@@ -34,9 +34,9 @@ function recortar (img) {
   return salida.toDataURL('image/png')
 }
 
-export function Miniatura ({ src, alt = '', relleno, className = '' }) {
+// Los accesorios son PNG del tamaño de la chica: aquí se recortan para usarlos como icono
+export function Miniatura ({ src, alt = '', className = '' }) {
   const [url, setUrl] = useState(cache.get(src) ?? null)
-  const [fallo, setFallo] = useState(false)
 
   useEffect(() => {
     if (cache.has(src)) return
@@ -47,12 +47,10 @@ export function Miniatura ({ src, alt = '', relleno, className = '' }) {
       cache.set(src, recorte)
       if (vivo) setUrl(recorte)
     }
-    img.onerror = () => { if (vivo) setFallo(true) }
     img.src = src
     return () => { vivo = false }
   }, [src])
 
-  if (fallo) return <span className={`${className} relleno`} role="img" aria-label={alt}>{relleno}</span>
   if (!url) return <span className={className} aria-hidden="true" />
   return <img className={className} src={url} alt={alt} />
 }
