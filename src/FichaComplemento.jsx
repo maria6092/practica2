@@ -1,10 +1,8 @@
-import { Miniatura } from './Miniatura.jsx'
-
 export function FichaComplemento ({ children, imagen, tipo = 'Accesorio', equipado, alternar }) {
   return (
     <li className={equipado ? 'ficha-comp ficha-comp-puesta' : 'ficha-comp'}>
       <div className="ficha-comp-imagen">
-        <Miniatura src={imagen} alt={String(children)} />
+        <img src={imagen} alt={String(children)} />
       </div>
       <strong>{children}</strong>
       <span className="ficha-comp-tipo">Tipo: {tipo}</span>

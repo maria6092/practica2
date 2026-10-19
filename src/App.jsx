@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Miniatura } from './Miniatura.jsx'
 import { FichaComplemento } from './FichaComplemento.jsx'
 
 const RUTA = import.meta.env.BASE_URL + 'img/'
@@ -12,17 +11,17 @@ const CHICAS = [
 
 // "chica" indica de quién es cada accesorio
 const COMPLEMENTOS = [
-  { id: 'hippie_ac1', chica: 'hippie', nombre: 'Bordados', tipo: 'Ropa' },
-  { id: 'hippie_ac2', chica: 'hippie', nombre: 'Mariposa azul', tipo: 'Adorno' },
-  { id: 'hippie_ac3', chica: 'hippie', nombre: 'Luciérnagas', tipo: 'Adorno' },
+  { id: 'hippie_ac1', icono: 'hilo', chica: 'hippie', nombre: 'Bordados', tipo: 'Ropa' },
+  { id: 'hippie_ac2', icono: 'mariposa', chica: 'hippie', nombre: 'Mariposa azul', tipo: 'Adorno' },
+  { id: 'hippie_ac3', icono: 'flor', chica: 'hippie', nombre: 'Luciérnagas', tipo: 'Adorno' },
 
-  { id: 'choni_ac1', chica: 'choni', nombre: 'Estampado de leopardo', tipo: 'Ropa' },
-  { id: 'choni_ac2', chica: 'choni', nombre: 'Gafas de sol', tipo: 'Gafas' },
-  { id: 'choni_ac3', chica: 'choni', nombre: 'Bolso', tipo: 'Bolso' },
+  { id: 'choni_ac1', icono: 'estampado', chica: 'choni', nombre: 'Estampado de leopardo', tipo: 'Ropa' },
+  { id: 'choni_ac2', icono: 'gafas', chica: 'choni', nombre: 'Gafas de sol', tipo: 'Gafas' },
+  { id: 'choni_ac3', icono: 'bolso', chica: 'choni', nombre: 'Bolso', tipo: 'Bolso' },
 
-  { id: 'deportista_ac1', chica: 'deportista', nombre: 'Hula hoop', tipo: 'Material deportivo' },
-  { id: 'deportista_ac2', chica: 'deportista', nombre: 'Mazas de gimnasia', tipo: 'Material deportivo' },
-  { id: 'deportista_ac3', chica: 'deportista', nombre: 'Tutu', tipo: 'Ropa' }
+  { id: 'deportista_ac1', icono: 'hulahop', chica: 'deportista', nombre: 'Hula hoop', tipo: 'Material deportivo' },
+  { id: 'deportista_ac2', icono: 'mazas', chica: 'deportista', nombre: 'Mazas de gimnasia', tipo: 'Material deportivo' },
+  { id: 'deportista_ac3', icono: 'tutu', chica: 'deportista', nombre: 'Tutu', tipo: 'Ropa' }
 ]
 
 export function App () {
@@ -93,12 +92,10 @@ export function App () {
                 <button key={c.id} type="button" title={c.nombre} aria-pressed={idsPuestos.includes(c.id)}
                   className={idsPuestos.includes(c.id) ? 'burbuja burbuja-icono burbuja-activa' : 'burbuja burbuja-icono'}
                   onClick={() => alternarComplemento(c.id)}>
-                  <Miniatura className="burbuja-imagen" src={`${RUTA}complementos/${c.id}.png`} alt={c.nombre} />
+                  <img className="burbuja-imagen" src={`${RUTA}iconos/${c.icono}.png`} alt={c.nombre} />
                 </button>
               ))}
             </nav>
-
-            <p className="leyenda">{chica.nombre} · {puestos.length > 0 ? `lleva ${puestos.map(c => c.nombre).join(', ')}` : 'sin accesorios'}</p>
           </div>
 
           <div className="chicas-mini">
@@ -119,7 +116,7 @@ export function App () {
           <p className="subtitulo">Pulsa el botón para equipar o quitar cada accesorio.</p>
           <ul className="inventario">
             {complementosChica.map(c => (
-              <FichaComplemento key={c.id} imagen={`${RUTA}complementos/${c.id}.png`} tipo={c.tipo}
+              <FichaComplemento key={c.id} imagen={`${RUTA}iconos/${c.icono}.png`} tipo={c.tipo}
                 equipado={idsPuestos.includes(c.id)} alternar={() => alternarComplemento(c.id)}>
                 {c.nombre}
               </FichaComplemento>
