@@ -1,15 +1,22 @@
-// Ruta base de las imágenes (funciona también si se publica en una subcarpeta, p. ej. GitHub Pages)
+
 export const RUTA = import.meta.env.BASE_URL + 'img/'
- 
-// Elementos equipables: los 5 estilos de ropa.
-// Iconos: img/iconos/<id>.png · Chicas: img/personajes/<1|2|3>/<id>.png (+ base.png = sin look)
-export const ESTILOS = [
-  { id: 'gotico',  nombre: 'Gótico',  tipo: 'Look oscuro',  emoji: '🦇' },
-  { id: 'vintage', nombre: 'Vintage', tipo: 'Look retro',   emoji: '🎀' },
-  { id: 'choni',   nombre: 'Choni',   tipo: 'Look 2000s',   emoji: '💅' },
-  { id: 'pija',    nombre: 'Pija',    tipo: 'Look preppy',  emoji: '👛' },
-  { id: 'hippie',  nombre: 'Hippie',  tipo: 'Look boho',    emoji: '🌸' }
+export const CHICAS = [
+  { id: 'hippie',     nombre: 'Hippie', },
+  { id: 'choni',      nombre: 'Choni', },
+  { id: 'deportista', nombre: 'Deportista', }
 ]
+
+export const COMPLEMENTOS = [
+  { id: 'hippie_ac1', chica: 'hippie', nombre: 'Bordados' },
+  { id: 'hippie_ac2', chica: 'hippie', nombre: 'Mariposa azul'},
+  { id: 'hippie_ac3', chica: 'hippie', nombre: 'Luciérnagas'},
+
  
-export const PERSONAJES = ['Chica 1', 'Chica 2', 'Chica 3']
- 
+  { id: 'choni_ac1', chica: 'choni', nombre: 'Estampado de leopardo'},
+  { id: 'choni_ac2', chica: 'choni', nombre: 'Gafas de sol'},
+  { id: 'choni_ac3', chica: 'choni', nombre: 'Bolso' },
+
+  { id: 'deportista_ac1', chica: 'deportista', nombre: 'Hula hoop'},
+  { id: 'deportista_ac2', chica: 'deportista', nombre: 'Mazas de gimnasia'},
+  { id: 'deportista_ac3', chica: 'deportista', nombre: 'Tutu'}
+]

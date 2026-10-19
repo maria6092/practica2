@@ -275,35 +275,45 @@ td.num { font-family: var(--fuente-titulo); font-weight: 700; font-size: 1.05rem
   td.num { font-size: .9rem; }
 }
 
-/* ---------- Práctica 2: vestidor ---------- */
+/* ---------- Práctica 2: armario ---------- */
 .gif-slot .relleno { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--fuente-titulo); font-weight: 700; color: var(--rosa-oscuro); background: var(--rosa-claro); }
 .caja-cuerpo ul { margin: 0; padding-left: 18px; }
+.cuerpo { grid-template-columns: minmax(0, 1fr) 210px; grid-template-areas: "principal lateral"; }
 
 .pantalla {
   position: relative;
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) 44px 84px;
+  grid-template-columns: 44px minmax(0, 1fr) 44px 104px;
   align-items: center;
   gap: 8px;
   padding: 26px 14px 12px;
   overflow: hidden;
-  background: linear-gradient(160deg, #f5b9e8, #bcdcff);
+  background: radial-gradient(circle at 50% 35%, #eaf7ff 0%, transparent 55%), linear-gradient(160deg, #f7bdea, #b9d9ff);
   border: 2px solid var(--rosa-oscuro);
   box-shadow: 3px 3px 0 rgba(0, 0, 0, .18);
 }
 .pantalla::before { content: '\2605  \2726  \2605'; position: absolute; top: 6px; left: 14px; font-size: 1.2rem; letter-spacing: 8px; color: #8fb8ee; }
+.pantalla::after { content: '\2605'; position: absolute; right: 14px; bottom: 34px; font-size: 2.6rem; color: #ff8ad0; text-shadow: 0 0 6px #fff; transform: rotate(15deg); }
+
 .escenario { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-height: 420px; }
-.personaje { position: relative; z-index: 1; height: 380px; max-width: 100%; object-fit: contain; margin-bottom: -34px; }
-.personaje.relleno { display: grid; place-items: center; width: 220px; font-size: 9rem; opacity: .65; }
+.personaje-caja { position: relative; z-index: 1; height: 380px; aspect-ratio: 1240 / 1754; max-width: 100%; margin-bottom: -34px; }
+.personaje { display: block; width: 100%; height: 100%; object-fit: contain; }
+.personaje.relleno { display: grid; place-items: center; font-size: 9rem; opacity: .65; }
+/* los accesorios ocupan todo el lienzo de la chica y se apilan encima */
+.complemento-puesto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; animation: aparecer .3s ease-out; }
+.complemento-puesto.relleno { display: block; inset: auto; left: 0; height: auto; text-align: center; font-size: 3.2rem; line-height: 1; }
+@keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
+
 .pedestal {
-  width: 210px;
+  width: 230px;
   height: 48px;
   border-radius: 50%;
   background: radial-gradient(ellipse at 50% 35%, var(--rosa-claro) 10%, var(--rosa) 62%, var(--rosa-oscuro));
-  box-shadow: inset 0 -6px 8px rgba(0, 0, 0, .25), 0 6px 10px rgba(0, 0, 0, .25);
+  box-shadow: inset 0 -6px 8px rgba(0, 0, 0, .25), 0 0 0 7px rgba(255, 255, 255, .35), 0 0 0 14px rgba(255, 255, 255, .2), 0 6px 10px rgba(0, 0, 0, .25);
 }
 .leyenda { grid-column: 1 / -1; margin: 8px 0 0; text-align: center; font-family: var(--fuente-titulo); font-weight: 700; color: var(--rosa-oscuro); }
 
+/* botones tipo burbuja */
 .burbuja {
   position: relative;
   display: grid;
@@ -319,43 +329,51 @@ td.num { font-family: var(--fuente-titulo); font-weight: 700; font-size: 1.05rem
 .burbuja::after { content: ''; position: absolute; top: 6px; left: 12%; width: 32%; height: 22%; border-radius: 50%; background: rgba(255, 255, 255, .7); }
 .burbuja:hover { transform: scale(1.08); }
 .burbuja:active { transform: scale(.95); }
-.flecha { width: 44px; height: 40px; border-radius: 12px; }
+.flecha {
+  width: 44px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(#e2d0ff, #9a6be0 70%);
+  box-shadow: inset 0 -6px 10px #5c34a8, inset 0 4px 6px rgba(255, 255, 255, .6), 2px 3px 0 rgba(0, 0, 0, .2);
+}
 .selector { display: flex; flex-direction: column; gap: 10px; }
-.burbuja-icono { height: 54px; border-radius: 999px; }
+.burbuja-icono { height: 64px; border-radius: 999px; }
 .burbuja-activa { box-shadow: inset 0 -6px 10px var(--rosa-oscuro), inset 0 4px 6px rgba(255, 255, 255, .6), 0 0 0 3px #ffe600, 0 0 14px #fff; }
-.burbuja-imagen { position: relative; z-index: 1; width: 34px; height: 34px; object-fit: contain; }
+.burbuja-imagen { position: relative; z-index: 1; width: 40px; height: 40px; object-fit: contain; }
 .burbuja-imagen.relleno { display: grid; place-items: center; font-size: 1.7rem; }
 
-.fila-equipada { background: var(--rosa-claro) !important; }
-.boton-equipar { display: inline-block; width: auto; min-width: 116px; min-height: 0; margin: 0; padding: 5px 12px; font-size: .9rem; }
+/* selector de chicas */
+.chicas-mini { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chica-mini { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 8px; font-family: var(--fuente-titulo); font-size: .8rem; font-weight: 700; color: var(--rosa-oscuro); background: #fff; border: 2px solid var(--rosa-oscuro); border-radius: 8px; cursor: pointer; }
+.chica-mini:hover { background: var(--rosa-claro); }
+.chica-mini-activa { color: #fff; background: linear-gradient(var(--rosa), var(--rosa-oscuro)); box-shadow: 0 0 0 3px #ffe600; }
+.chica-mini .ficha img { object-position: 50% 12%; }
+.chica-mini .ficha { font-size: 1.3rem; }
+
+/* inventario */
+.inventario { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.ficha-comp { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 8px 10px; text-align: center; background: #fff; border: 2px dashed var(--rosa-oscuro); }
+.ficha-comp-puesta { background: var(--rosa-claro); border-style: solid; }
+.ficha-comp-imagen { display: grid; place-items: center; width: 84px; height: 84px; font-size: 2.6rem; background: linear-gradient(160deg, #f7bdea, #b9d9ff); border: 2px solid var(--rosa-oscuro); border-radius: 50%; }
+.ficha-comp-imagen img { width: 70%; height: 70%; object-fit: contain; }
+.ficha-comp-nombre { font-family: var(--fuente-titulo); font-size: .95rem; }
+.ficha-comp-tipo { font-size: .75rem; color: #555; }
+.cinta { position: absolute; top: 6px; right: -2px; padding: 0 6px; font-family: var(--fuente-titulo); font-size: .7rem; font-weight: 700; color: #fff; background: var(--rosa-oscuro); transform: rotate(6deg); }
+
+.boton-equipar { display: inline-block; width: auto; min-width: 116px; min-height: 0; margin: 6px 0 0; padding: 5px 12px; font-size: .9rem; }
 .boton-equipar.puesto { color: var(--rosa-oscuro); text-shadow: none; background: #fff; border: 2px solid var(--rosa-oscuro); }
 .boton-equipar.puesto:hover { color: var(--error); border-color: var(--error); background: #fdf1f0; filter: none; }
 .boton-quitar, .boton-equipar.puesto:hover .boton-texto { display: none; }
 .boton-equipar.puesto:hover .boton-quitar { display: inline; }
 
+@media (max-width: 760px) {
+  .cuerpo { grid-template-areas: "principal" "lateral"; grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 520px) {
-  .pantalla { grid-template-columns: 34px minmax(0, 1fr) 34px 66px; padding-inline: 8px; }
+  .pantalla { grid-template-columns: 34px minmax(0, 1fr) 34px 70px; padding-inline: 8px; }
   .flecha { width: 34px; }
-  .personaje { height: 320px; }
-  .tabla .columna-tipo { display: none; }
-}
-
-/* ---------- Ajustes: estética de juego de vestir ---------- */
-.cuerpo { grid-template-columns: minmax(0, 1fr); grid-template-areas: "principal"; }
-.pantalla {
-  grid-template-columns: 44px minmax(0, 1fr) 44px 104px;
-  background: radial-gradient(circle at 50% 35%, #eaf7ff 0%, transparent 55%), linear-gradient(160deg, #f7bdea, #b9d9ff);
-}
-.pantalla::after { content: '\2605'; position: absolute; right: 14px; bottom: 34px; font-size: 2.6rem; color: #ff8ad0; text-shadow: 0 0 6px #fff; transform: rotate(15deg); }
-.flecha {
-  background: linear-gradient(#e2d0ff, #9a6be0 70%);
-  box-shadow: inset 0 -6px 10px #5c34a8, inset 0 4px 6px rgba(255, 255, 255, .6), 2px 3px 0 rgba(0, 0, 0, .2);
-}
-.burbuja-icono { height: 64px; }
-.burbuja-imagen { width: 40px; height: 40px; }
-.pedestal { width: 230px; box-shadow: inset 0 -6px 8px rgba(0, 0, 0, .25), 0 0 0 7px rgba(255, 255, 255, .35), 0 0 0 14px rgba(255, 255, 255, .2), 0 6px 10px rgba(0, 0, 0, .25); }
-@media (max-width: 520px) {
-  .pantalla { grid-template-columns: 34px minmax(0, 1fr) 34px 70px; }
+  .personaje-caja { height: 320px; }
   .burbuja-icono { height: 52px; }
   .burbuja-imagen { width: 30px; height: 30px; }
+  .escenario { min-height: 360px; }
 }
